@@ -1,5 +1,5 @@
 import Link from "next/link"
-import GoogleLoginButtonJs from '@/component/googlebuttonjs';
+import GoogleLoginButtonJs from '@/common/component/googlebuttonjs';
 // import GoogleLoginButtonHtml from '@/component/googlebuttonhtml';
 
 export default function About() {

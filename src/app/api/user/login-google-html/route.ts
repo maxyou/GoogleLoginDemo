@@ -24,13 +24,13 @@ async function verify(token: string) {
 
 export async function POST(request: Request) {
   
-  console.log(`receiver POST`);
+  console.log(`login-google-html POST`);
 
   // const idToken: string = request.body?.credential; // 从请求的主体中获取 ID 令牌
     
   const body = await request.text();
 
-  console.log('receiver.ts, body:', body);
+  console.log('login-google-html, body:', body);
   
   // const res = NextResponse.json({ code: 0, message: 'success' })
 
