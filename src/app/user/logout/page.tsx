@@ -1,8 +1,22 @@
+'use client'
+
 import Link from "next/link"
-import GoogleLoginButtonJs from '@/component/googlebuttonjs';
+import GoogleLogoutButtonJs from '@/component/googlebuttonjs-logout';
 // import GoogleLoginButtonHtml from '@/component/googlebuttonhtml';
 
 export default function About() {
+
+
+  function handleOnclick() {
+    if (typeof window.google !== 'undefined') {
+      console.log("google is defined");
+      window.google.accounts.id.revoke('114503523336788240762', (done: { error: any; }) => {
+        console.log(`revoke done error: ${done.error}`);
+      });
+    } else {
+      console.log("google is not defined");
+    }
+  }
 
   return (
     <main className="w-full h-full flex flex-col items-center justify-between p-24">
@@ -12,9 +26,10 @@ export default function About() {
         Here is logout of google.
         </div>
         <div>
-          <GoogleLoginButtonJs />
+          {/* <button onClick={() => {} }>Logout</button> */}
+          <GoogleLogoutButtonJs />
         </div>
-
+        <button onClick={handleOnclick}>Google Logout</button>
       </div>
     </main>
   )
