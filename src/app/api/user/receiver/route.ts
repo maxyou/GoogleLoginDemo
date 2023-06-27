@@ -27,14 +27,13 @@ export async function POST(request: Request) {
   console.log(`receiver POST`);
 
   // const idToken: string = request.body?.credential; // 从请求的主体中获取 ID 令牌
-  
+    
   const body = await request.text();
 
   console.log('receiver.ts, body:', body);
+  
+  // const res = NextResponse.json({ code: 0, message: 'success' })
 
-
-  const res = NextResponse.json({ code: 0, message: 'success' })
-
-  return res;
+  return NextResponse.redirect(new URL(request.url).origin + '/home', { status: 302 });
 
 }
