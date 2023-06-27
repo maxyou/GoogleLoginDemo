@@ -15,7 +15,7 @@ export default function About() {
           here will embed google login button
         </div>
         <div>
-          <GoogleLoginButtonJs />
+          {/* <GoogleLoginButtonJs /> */}
         </div>
         <div>
           <GoogleLoginButtonHtml />

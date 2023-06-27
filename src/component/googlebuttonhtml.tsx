@@ -1,6 +1,27 @@
 'use client'
 
 import React, { useEffect } from 'react';
+import { OAuth2Client } from 'google-auth-library';
+
+const client = new OAuth2Client("148920992021-ra7stt37aqlqii1bojpe3enf3t800vdh.apps.googleusercontent.com");
+
+async function verify(token: string) {
+  console.log("verify 1");
+  const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: "148920992021-ra7stt37aqlqii1bojpe3enf3t800vdh.apps.googleusercontent.com",  // Specify the CLIENT_ID of the app that accesses the backend
+      // Or, if multiple clients access the backend:
+      //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+  });
+  console.log("verify 2");
+  const payload = ticket.getPayload();
+  console.log("verify 3");
+  console.log(`token payload: ${JSON.stringify(payload)}`);
+  console.log("verify 4");
+  // const userid = payload['sub'];
+  // If request specified a G Suite domain:
+  // const domain = payload['hd'];
+}
 
 const GoogleLoginButton: React.FC = () => {
   useEffect(() => {
@@ -16,6 +37,19 @@ const GoogleLoginButton: React.FC = () => {
       initializeGoogleLogin();
     }
   }, []);
+
+  const handleCredentialResponse = async (response: any) => {
+    console.log("Encoded JWT ID token: " + response.credential);
+
+    await verify(response.credential).catch(console.error);
+    console.log("after verify token");
+  }
+  // async function handleCredentialResponse(response: any) {
+  //   console.log("Encoded JWT ID token: " + response.credential);
+
+  //   await verify(response.credential).catch(console.error);
+  //   console.log("after verify token");
+  // }
 
   return (
     <div>

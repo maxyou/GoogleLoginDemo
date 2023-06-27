@@ -9,6 +9,10 @@ export async function middleware(request: NextRequest) {
     // const headers = new Headers(request.headers);
     // console.log('middleware.ts, Request Headers:', JSON.stringify(headers));
 
+    // if(request.method === 'POST') {
+    //     console.log('middleware.ts, request.body:', request.body);
+    // }
+
     const resp = NextResponse.next({
     });    
 
