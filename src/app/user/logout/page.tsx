@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import GoogleLogoutButtonJs from '@/component/googlebuttonjs-logout';
+import GoogleLogoutButtonJs from '@/component/googlebuttonjs';
 // import GoogleLoginButtonHtml from '@/component/googlebuttonhtml';
 
 export default function About() {
