@@ -1,5 +1,5 @@
 import Link from "next/link"
-import GoogleLoginButtonJs from '@/component/googlebuttonjs';
+// import GoogleLoginButtonJs from '@/component/googlebuttonjs';
 import GoogleLoginButtonHtml from '@/component/googlebuttonhtml';
 
 export default function About() {
@@ -9,13 +9,7 @@ export default function About() {
 
       <div>
         <div>
-          this is login page
-        </div>
-        <div>
-          here will embed google login button
-        </div>
-        <div>
-          {/* <GoogleLoginButtonJs /> */}
+          Here is google login HTML button. After login, it will redirect to home page. Please check sever log for token.
         </div>
         <div>
           <GoogleLoginButtonHtml />
