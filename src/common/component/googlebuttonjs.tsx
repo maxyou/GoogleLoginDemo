@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { OAuth2Client } from 'google-auth-library';
+import { GoogleLoginButtonProps } from '../interface';
 
 const client = new OAuth2Client("148920992021-ra7stt37aqlqii1bojpe3enf3t800vdh.apps.googleusercontent.com");
 
@@ -29,32 +30,74 @@ declare global {
   }
 }
 
-const GoogleLoginButton: React.FC = () => {
+async function handleCredentialResponse(response: any) {
+  
+  console.log("Encoded JWT ID token: " + response.credential);
+
+  // await verify(response.credential).catch(console.error);
+  // console.log("after verify token");
+
+  
+  const url = "/api/user/login-google-js";
+  const options = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({      
+      credential: response.credential,
+    }),
+  };
+
+  
+  fetch(url, options)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      if (data.code === 0) {
+        // router.refresh();
+        // redirect to todolist page
+        console.log(`Login-google-js success: ${data.message}`);
+      } else {
+
+        console.log(`Login-google-js failed: ${data.message}`);
+      }
+    });
+
+
+  // Perform registration logic here
+  // You can send the data to an API or handle it as per your requirement
+  console.log('Login submitted');
+}
+
+
+
+const GoogleLoginButton: React.FC<GoogleLoginButtonProps> = ({
+  gsi_src,
+  login_uri,
+  client_id
+}) => {
+  
+  function initializeGoogleLogin() {
+    window.google.accounts.id.initialize({
+      client_id: client_id,
+      callback: handleCredentialResponse
+    });
+    window.google.accounts.id.renderButton(
+      document.getElementById("buttonDiv"),
+      { theme: "outline", size: "large" }
+    );
+    window.google.accounts.id.prompt();
+  }
+
   useEffect(() => {
-    async function handleCredentialResponse(response: any) {
-      console.log("Encoded JWT ID token: " + response.credential);
-
-      await verify(response.credential).catch(console.error);
-      console.log("after verify token");
-    }
-
-    function initializeGoogleLogin() {
-      window.google.accounts.id.initialize({
-        client_id: "148920992021-ra7stt37aqlqii1bojpe3enf3t800vdh.apps.googleusercontent.com",
-        callback: handleCredentialResponse
-      });
-      window.google.accounts.id.renderButton(
-        document.getElementById("buttonDiv"),
-        { theme: "outline", size: "large" }
-      );
-      window.google.accounts.id.prompt();
-    }
 
     if (typeof window.google !== 'undefined') {
       initializeGoogleLogin();
     } else {
       const script = document.createElement('script');
-      script.src = 'https://accounts.google.com/gsi/client';
+      script.src = gsi_src;
       script.async = true;
       script.defer = true;
       script.onload = initializeGoogleLogin;

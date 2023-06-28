@@ -5,7 +5,7 @@ import GoogleLoginButtonHtml from '@/common/component/googlebuttonhtml';
 export default function About() {
   
   console.log(`gsi_src: ${process.env.GOOGLE_ACCOUNT_GSI_CLIENT}`);
-  console.log(`login_uri: ${process.env.GOOGLE_LOGIN_URI}`);
+  console.log(`login_uri: ${process.env.GOOGLE_LOGIN_URI_HTML}`);
   console.log(`client_id: ${process.env.GOOGLE_CLIENT_ID}`);
 
   return (
@@ -18,7 +18,7 @@ export default function About() {
         <div>
           <GoogleLoginButtonHtml 
             gsi_src={process.env.GOOGLE_ACCOUNT_GSI_CLIENT!}
-            login_uri={process.env.GOOGLE_LOGIN_URI!} 
+            login_uri={process.env.GOOGLE_LOGIN_URI_HTML!} 
             client_id={process.env.GOOGLE_CLIENT_ID!}
           />
         </div>

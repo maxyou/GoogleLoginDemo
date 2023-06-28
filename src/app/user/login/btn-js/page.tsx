@@ -9,10 +9,14 @@ export default function About() {
 
       <div>
         <div>
-        Here is google login Javascript button. After login, it will keep to this page. Please check devtools console for token.
+          Here is google login Javascript button. After login, it will keep to this page. Please check devtools console for token.
         </div>
         <div>
-          <GoogleLoginButtonJs />
+          <GoogleLoginButtonJs
+            gsi_src={process.env.GOOGLE_ACCOUNT_GSI_CLIENT!}
+            login_uri={process.env.GOOGLE_LOGIN_URI!}
+            client_id={process.env.GOOGLE_CLIENT_ID!}
+          />
         </div>
 
       </div>

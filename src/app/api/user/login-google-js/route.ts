@@ -32,8 +32,16 @@ export async function POST(request: Request) {
 
   console.log('login-google-html, body:', body);
   
-  // const res = NextResponse.json({ code: 0, message: 'success' })
+  const res = NextResponse.json({ code: 0, message: 'success' })
+  return res;
 
-  return NextResponse.redirect(new URL(request.url).origin + '/home', { status: 302 });
+  // return NextResponse.redirect(new URL(request.url).origin + '/home', { status: 302 });
+  
+  // return new Response(null, {
+  //   status: 302,
+  //   headers: {
+  //     Location: '/home',
+  //   },
+  // });
 
 }
