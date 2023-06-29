@@ -1,14 +1,15 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { OAuth2Client } from 'google-auth-library';
+import {userInfo} from '../userinfo';
 
-const client = new OAuth2Client("148920992021-ra7stt37aqlqii1bojpe3enf3t800vdh.apps.googleusercontent.com");
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID as string);
 
 async function verify(token: string) {
   console.log("verify 1");
   const ticket = await client.verifyIdToken({
       idToken: token,
-      audience: "148920992021-ra7stt37aqlqii1bojpe3enf3t800vdh.apps.googleusercontent.com",  // Specify the CLIENT_ID of the app that accesses the backend
+      audience: process.env.GOOGLE_CLIENT_ID as string
       // Or, if multiple clients access the backend:
       //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
   });
@@ -24,24 +25,19 @@ async function verify(token: string) {
 
 export async function POST(request: Request) {
   
-  console.log(`login-google-html POST`);
+  console.log(`login-google-js POST`);
 
-  // const idToken: string = request.body?.credential; // 从请求的主体中获取 ID 令牌
-    
-  const body = await request.text();
+  const body = await request.json(); // Parse the body as JSON
 
-  console.log('login-google-html, body:', body);
+  console.log('login-google-js, body:', body);
+
+  const credential = body.credential; // Access the "credential" property
+
+  console.log('credential:', credential);
+
+  verify(credential);
   
-  const res = NextResponse.json({ code: 0, message: 'success' })
+  const res = NextResponse.json({ code: 0, message: 'success' });
   return res;
-
-  // return NextResponse.redirect(new URL(request.url).origin + '/home', { status: 302 });
-  
-  // return new Response(null, {
-  //   status: 302,
-  //   headers: {
-  //     Location: '/home',
-  //   },
-  // });
 
 }
