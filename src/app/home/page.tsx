@@ -1,14 +1,15 @@
-'use client'
+import { headers, cookies } from 'next/headers'
+import ClientPage from './clientpage'
 
 export default function Home() {
 
-    const logout = () => {
-        if (typeof window.google !== 'undefined') {
-            console.log("google is defined");
-          } else {
-            console.log("google is undefined");
-          }
-    }
+    const headersList = headers()
+    const middlewareSet = headersList.get('middlewareSet')
+
+    const cookiesList = cookies()
+    const jwt = cookiesList.get('jwt')
+
+
     // function logout() {
     //     if (typeof window.google !== 'undefined') {
     //         console.log("google is defined");
@@ -18,9 +19,18 @@ export default function Home() {
     // }
 
     return (
-        <div>
-            <h1>Home after redirect</h1>
-            <button onClick={logout}>Logout</button>
+        <div className="p-8">
+            <h1 className="text-4xl font-bold mb-4">Home</h1>
+            <br />
+            <div>
+                <p className="font-bold">User Information:</p>
+                <p>Middleware Set: {JSON.stringify(middlewareSet)}</p>
+            </div>
+            <br />
+            <div>
+                <ClientPage middlewareSet={middlewareSet} />
+            </div>
         </div>
-    )
+    );
+
 }

@@ -2,6 +2,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { OAuth2Client } from 'google-auth-library';
 import {userInfo} from '../userinfo';
+import { JwtUser, getJoseJwtToken } from '@/common/tool/calc';
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID as string);
 
@@ -35,9 +36,20 @@ export async function POST(request: Request) {
 
   console.log('credential:', credential);
 
-  verify(credential);
+  // verify(credential);
   
+  const jwtUser:JwtUser = { id:"user-id", name:"user-name", email:"user-email"}
+
   const res = NextResponse.json({ code: 0, message: 'success' });
+
+  const token = await getJoseJwtToken(jwtUser);
+  const cookieOptions = {
+    httpOnly: true,
+    secure: true
+  };
+
+  res.cookies.set('jwt', token, cookieOptions);
+  
   return res;
 
 }

@@ -43,6 +43,8 @@ export async function joseVerify(token: string, secret: string): Promise<JoseJwt
 export interface JwtUser {
     id: string;
     name: string;
+    email?: string;
+    from?: string;
 }
 
 export async function getJoseJwtToken(jwtUser: JwtUser): Promise<string> {
