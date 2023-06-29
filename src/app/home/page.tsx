@@ -20,11 +20,10 @@ export default function Home() {
 
     return (
         <div className="p-8">
-            <h1 className="text-4xl font-bold mb-4">Home</h1>
+            <h1 className="text-4xl font-bold mb-4">Server Component</h1>
             <br />
             <div>
-                <p className="font-bold">User Information:</p>
-                <p>Middleware Set: {JSON.stringify(middlewareSet)}</p>
+                <p>Middleware parse app-jwt: {middlewareSet}</p>
             </div>
             <br />
             <div>
