@@ -18,7 +18,7 @@ export default function About() {
         <div>
           <GoogleLoginButtonHtml 
             gsi_src={process.env.GOOGLE_ACCOUNT_GSI_CLIENT!}
-            login_uri={process.env.GOOGLE_LOGIN_URI_HTML!} 
+            server_login_uri={process.env.GOOGLE_LOGIN_URI_HTML!} 
             client_id={process.env.GOOGLE_CLIENT_ID!}
           />
         </div>

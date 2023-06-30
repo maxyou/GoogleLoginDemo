@@ -6,12 +6,12 @@ import { GoogleLoginButtonProps } from '../interface';
 
 const GoogleLoginButton: React.FC<GoogleLoginButtonProps> = ({
   gsi_src,
-  login_uri,
+  server_login_uri,
   client_id
 }) => {
 
   console.log(`gsi_src: ${gsi_src}`);
-  console.log(`login_uri: ${login_uri}`);
+  console.log(`server_login_uri: ${server_login_uri}`);
   console.log(`client_id: ${client_id}`);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const GoogleLoginButton: React.FC<GoogleLoginButtonProps> = ({
       <div
         id="g_id_onload"
         data-client_id={client_id}
-        data-login_uri={login_uri}
+        data-login_uri={server_login_uri}
         data-auto_prompt="false"
       ></div>
       <div

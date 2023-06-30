@@ -36,8 +36,7 @@ declare global {
 const GoogleLoginButton: React.FC<GoogleLoginButtonProps> = ({
   gsi_src,
   client_id,
-  login_uri,
-  direct_uri
+  after_login_jump_uri
 }) => {
 
   const router = useRouter();
@@ -72,9 +71,11 @@ const GoogleLoginButton: React.FC<GoogleLoginButtonProps> = ({
           // router.refresh();
           // redirect to todolist page
           console.log(`Login-google-js success: ${data.message}`);
-          router.push('/home');
+          router.refresh();
+          if(after_login_jump_uri) {
+            router.push(after_login_jump_uri);
+          }
         } else {
-
           console.log(`Login-google-js failed: ${data.message}`);
         }
       });
