@@ -54,12 +54,12 @@ export async function middleware(request: NextRequest) {
       });
     
       //refresh jwt
-      const refreshJwtToken = await getJoseJwtToken(jwtUser);
+      // const refreshJwtToken = await getJoseJwtToken(jwtUser);
     
-      resp.cookies.set('jwt', refreshJwtToken, {
-        httpOnly: true,
-        secure: true
-      })
+      // resp.cookies.set('jwt', refreshJwtToken, {
+      //   httpOnly: true,
+      //   secure: true
+      // })
     
       return resp;
   
@@ -70,7 +70,7 @@ export async function middleware(request: NextRequest) {
   console.log('middleware.ts, decodedToken.code !== 0, redirect to /user/login')
   // return NextResponse.redirect(new URL('/user/login/btn-js', request.url))
   
-  headers.set('middlewareSet', 'no login found');
+  headers.set('middlewareSet', JSON.stringify({}));
 
   const resp = NextResponse.next({
     request: {

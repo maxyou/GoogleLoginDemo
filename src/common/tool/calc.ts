@@ -45,9 +45,13 @@ export interface JwtUser {
     name: string;
     email?: string;
     from?: string;
+    picture?: string;
+    sub?: string;
 }
 
 export async function getJoseJwtToken(jwtUser: JwtUser): Promise<string> {
+
+    console.log(`getJoseJwtToken, jwtUser:${JSON.stringify(jwtUser)}`);
 
     const secret = process.env.JWT_SECRET as string;   
 

@@ -4,13 +4,3 @@ export interface GoogleLoginButtonProps {
     login_uri?: string;
     direct_uri?: string;
   }
-  
-export interface GoogleUser {
-    id: string;
-    name: string;
-    email: string;
-    picture: string;
-    given_name: string;
-    family_name: string;
-    jwt: string;
-}
