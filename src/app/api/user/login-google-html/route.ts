@@ -57,12 +57,34 @@ export async function POST(request: Request) {
     secure: true
   };
 
+
+  const redirectUrl = new URL(request.url).origin + '/home';
+
+  const html = `<!DOCTYPE html>
+    <html>
+    <head>
+      <meta http-equiv="refresh" content="0; url='${redirectUrl}'">
+    </head>
+    <body></body>
+    </html>`;
+
   const headers = {
-    "Location": new URL(request.url).origin + '/home',
-    "Set-Cookie": `jwt=${token}; HttpOnly; Secure`,
+    "Content-Type": "text/html",
+    // "Set-Cookie": "cookieName=cookieValue; Max-Age=3600; Path=/",
+    // "Set-Cookie": `appjwt=${token}; HttpOnly; Secure`,
+    "Set-Cookie": `jwt=${token}; Max-Age=3600; Path=/`,
   };
 
-  return new Response(null, { status: 302, headers });
+  return new NextResponse(html, { status: 200, headers });
+
+
+
+  // const headers = {
+  //   "Location": new URL(request.url).origin + '/home',
+  //   "Set-Cookie": `appjwt=${token}; HttpOnly; Secure`,
+  // };
+
+  // return new Response(null, { status: 302, headers });
 
   // const res = NextResponse.json({ code: 0, message: 'success' });
   // res.cookies.set('jwt', token, cookieOptions);
