@@ -2,15 +2,14 @@ import { NextResponse, NextRequest } from 'next/server';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { OAuth2Client } from 'google-auth-library';
 import { JwtUser, getJoseJwtToken } from '@/common/tool/calc';
-import { redirect } from 'next/dist/server/api-utils';
 
-const client = new OAuth2Client("148920992021-ra7stt37aqlqii1bojpe3enf3t800vdh.apps.googleusercontent.com");
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID as string);
 
 async function verify(token: string) {
   console.log("verify 1");
   const ticket = await client.verifyIdToken({
       idToken: token,
-      audience: "148920992021-ra7stt37aqlqii1bojpe3enf3t800vdh.apps.googleusercontent.com",  // Specify the CLIENT_ID of the app that accesses the backend
+      audience: process.env.GOOGLE_CLIENT_ID as string,  // Specify the CLIENT_ID of the app that accesses the backend
       // Or, if multiple clients access the backend:
       //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
   });
@@ -41,7 +40,7 @@ export async function POST(request: Request) {
 
   console.log('login-google-html, credential:', credential);
   
-  // const res = NextResponse.json({ code: 0, message: 'success' })
+  await verify(credential);  
 
   const jwtUser:JwtUser = { 
     id:"user-id", 
