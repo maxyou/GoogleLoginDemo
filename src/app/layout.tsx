@@ -19,7 +19,7 @@ export default function RootLayout({ children, } : { children: React.ReactNode }
       <body className={inter.className}>
         <div>
           <h1 className="text-4xl font-bold mb-4">Root Layout</h1>
-          <p>Middleware parse app-jwt: {middlewareSet}</p>
+          <p>login: {middlewareSet}</p>
         </div>
         {children}
       </body>

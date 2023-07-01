@@ -2,6 +2,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { OAuth2Client } from 'google-auth-library';
 import { JwtUser, getJoseJwtToken } from '@/common/tool/calc';
+import { redirect } from 'next/dist/server/api-utils';
 
 const client = new OAuth2Client("148920992021-ra7stt37aqlqii1bojpe3enf3t800vdh.apps.googleusercontent.com");
 
@@ -54,44 +55,13 @@ export async function POST(request: Request) {
   console.log('login-google-html, token:', token);
   const cookieOptions = {
     httpOnly: true,
-    secure: true
+    secure: true,    
+    maxAge: 365 * 24 * 60 * 60, // 1 year (in seconds)
+    path: "/",
   };
 
-
-  const redirectUrl = new URL(request.url).origin + '/home';
-
-  const html = `<!DOCTYPE html>
-    <html>
-    <head>
-      <meta http-equiv="refresh" content="0; url='${redirectUrl}'">
-    </head>
-    <body></body>
-    </html>`;
-
-  const headers = {
-    "Content-Type": "text/html",
-    // "Set-Cookie": "cookieName=cookieValue; Max-Age=3600; Path=/",
-    // "Set-Cookie": `appjwt=${token}; HttpOnly; Secure`,
-    "Set-Cookie": `jwt=${token}; Max-Age=3600; Path=/`,
-  };
-
-  return new NextResponse(html, { status: 200, headers });
-
-
-
-  // const headers = {
-  //   "Location": new URL(request.url).origin + '/home',
-  //   "Set-Cookie": `appjwt=${token}; HttpOnly; Secure`,
-  // };
-
-  // return new Response(null, { status: 302, headers });
-
-  // const res = NextResponse.json({ code: 0, message: 'success' });
-  // res.cookies.set('jwt', token, cookieOptions);
-
-  // return res;
-
-  // return NextResponse.redirect(new URL(request.url).origin + '/home', { status: 302 })
-          // .cookies.set('jwt', token, cookieOptions);
+  const res = NextResponse.redirect(new URL(request.url).origin + '/home', { status: 302 })
+  res.cookies.set('jwt', token, cookieOptions);
+  return res;
 
 }

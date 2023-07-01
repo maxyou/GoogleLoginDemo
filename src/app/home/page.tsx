@@ -23,7 +23,7 @@ export default function Home() {
             <h1 className="text-4xl font-bold mb-4">Server Component</h1>
             <br />
             <div>
-                <p>Middleware parse app-jwt: {middlewareSet}</p>
+                <p>login: {middlewareSet}</p>
             </div>
             <br />
             <div>

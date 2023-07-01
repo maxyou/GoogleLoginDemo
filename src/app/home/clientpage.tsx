@@ -50,7 +50,7 @@ const ClientPage: React.FC<{ middlewareSet: string | null }> = ({ middlewareSet 
             <h1 className="text-3xl font-bold mb-4">Client Component</h1>
             <br />
             <div>
-                <p>Middleware parse app-jwt: {middlewareSet}</p>
+                <p>login: {middlewareSet}</p>
             </div>
             <br />
 
