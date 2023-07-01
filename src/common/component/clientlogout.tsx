@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-const ClientPage: React.FC<{ middlewareSet: string | null }> = ({ middlewareSet }) => {
+const ClientLogout: React.FC<{ middlewareSet: string | null }> = ({ middlewareSet }) => {
 
     const router = useRouter();
 
@@ -34,11 +34,14 @@ const ClientPage: React.FC<{ middlewareSet: string | null }> = ({ middlewareSet 
         if (typeof window.google !== 'undefined') {
             console.log("google is defined");
 
-            window.google.accounts.id.revoke(jwtUser.sub, (done: { error: any; }) => {
-                console.log(`revoke done error: ${done.error}`);
-            });
+            if (jwtUser && jwtUser.sub) {
 
-            console.log("call window.google.accounts.id.revoke()");
+                window.google.accounts.id.revoke(jwtUser.sub, (done: { error: any; }) => {
+                    console.log(`revoke done error: ${done.error}`);
+                });
+
+                console.log("call window.google.accounts.id.revoke()");
+            }
 
         } else {
             console.log("google is undefined");
@@ -46,24 +49,12 @@ const ClientPage: React.FC<{ middlewareSet: string | null }> = ({ middlewareSet 
     }
 
     return (
-        <div className="bg-yellow-200">
-            <h1 className="text-3xl font-bold mb-4">Client Component</h1>
-            <br />
-            <div>
-                <p>login: {middlewareSet}</p>
-            </div>
-            <br />
-
-            {jwtUser && jwtUser.sub ? (
-                <div>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={logout}>
-                        Logout
-                    </button>
-                </div>
-            ) : null}
-
+        <div>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={logout}>
+                Logout
+            </button>
         </div>
     )
 }
 
-export default ClientPage
+export default ClientLogout

@@ -1,3 +1,4 @@
+import ClientLogout from '@/common/component/clientlogout'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { headers, cookies } from 'next/headers'
@@ -17,10 +18,11 @@ export default function RootLayout({ children, } : { children: React.ReactNode }
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div>
-          <h1 className="text-4xl font-bold mb-4">Root Layout</h1>
-          <p>login: {middlewareSet}</p>
-        </div>
+      <div className="bg-gray-900 text-white py-4 px-8">
+        <h1 className="text-4xl font-bold mb-4">Root Layout</h1>
+        <p className="text-xl">Login: {middlewareSet}</p>
+        <ClientLogout middlewareSet={middlewareSet} />
+      </div>
         {children}
       </body>
     </html>
