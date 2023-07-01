@@ -6,9 +6,14 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-start p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         <div className="flex flex-col items-center justify-start">
-          <p className="pb-6 pt-8">
-            Test Next.js with Google OAuth2.0 HTML button and JavaScript button.
+          <div className='p-2 m-2'>
+          <p className='p-2 m-2'>
+            Try Google OAuth2.0 HTML button and JavaScript button on Next.js 13.
           </p>
+          <p className='p-2 m-2'>
+            Use Google OAuth for verification, use JWT to keep login.
+          </p>
+          </div>
 
           <div>
             <Link href="/user/login/btn-html">
