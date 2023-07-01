@@ -6,9 +6,9 @@ import cookie from 'cookie';
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
 
-  console.log('======== middleware.ts ========')
+  // console.log('======== middleware.ts ========')
   // console.log('middleware.ts, request.url:', request.url)
-  console.log('middleware.ts, request.nextUrl.pathname:', request.nextUrl.pathname)
+  // console.log('middleware.ts, request.nextUrl.pathname:', request.nextUrl.pathname)
   
 
   // const { pathname } = request.nextUrl;
@@ -24,14 +24,14 @@ export async function middleware(request: NextRequest) {
   // headers.set('middlewareSet', 'mydata');
 
   const cookies = headers.get('cookie')
-  console.log('middleware.ts, cookies:', cookies)
+  // console.log('middleware.ts, cookies:', cookies)
 
   const parsedCookies = cookie.parse(cookies || '');
-  console.log('middleware.ts, parsedCookies:', parsedCookies)
+  // console.log('middleware.ts, parsedCookies:', parsedCookies)
 
   // Access the specific item you want
   const jwtToken = parsedCookies.jwt;
-  console.log('middleware.ts, jwtToken:', jwtToken)
+  // console.log('middleware.ts, jwtToken:', jwtToken)
 
   if (jwtToken) {
 
@@ -39,13 +39,13 @@ export async function middleware(request: NextRequest) {
   
     const decodedToken = await joseVerify(jwtToken, secret);
     // console.log('middleware.ts, decodedToken:', JSON.stringify(decodedToken))
-    console.log('middleware.ts, decodedToken:', decodedToken)
+    // console.log('middleware.ts, decodedToken:', decodedToken)
 
     if (decodedToken.code == 0) {
 
       const jwtUser = decodedToken.jwtPayloadWithUser!.jwtUser;
       headers.set('middlewareSet', JSON.stringify(jwtUser));
-      console.log('middleware.ts, user:', jwtUser)
+      // console.log('middleware.ts, user:', jwtUser)
     
       const resp = NextResponse.next({
         request: {
@@ -67,7 +67,7 @@ export async function middleware(request: NextRequest) {
 
   }
 
-  console.log('middleware.ts, decodedToken.code !== 0, redirect to /user/login')
+  // console.log('middleware.ts, decodedToken.code !== 0, redirect to /user/login')
   // return NextResponse.redirect(new URL('/user/login/btn-js', request.url))
   
   headers.set('middlewareSet', JSON.stringify({}));

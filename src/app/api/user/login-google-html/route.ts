@@ -18,6 +18,16 @@ async function verify(token: string) {
   console.log("verify 3");
   console.log(`token payload: ${JSON.stringify(payload)}`);
   console.log("verify 4");
+  if(!payload) {
+    return null;
+  }
+  const sub = payload['sub'];
+  const name = payload['name'];
+  const email = payload['email'];
+  const picture = payload['picture'];
+
+  return {sub, name, email, picture};
+
   // const userid = payload['sub'];
   // If request specified a G Suite domain:
   // const domain = payload['hd'];
@@ -40,15 +50,16 @@ export async function POST(request: Request) {
 
   console.log('login-google-html, credential:', credential);
   
-  await verify(credential);  
+  const user = await verify(credential);  
+  console.log('login-google-html, user:', JSON.stringify(user));
 
   const jwtUser:JwtUser = { 
     id:"user-id", 
-    name:"user-name", 
-    email:"user-email",
-    picture:"user-picture",
+    name:user?.name || "user-name", 
+    email:user?.email || "user-email",
+    picture:user?.picture || "user-picture",
     from:"google",
-    sub:"user-sub"
+    sub:user?.sub || "user-sub"
   }
   const token = await getJoseJwtToken(jwtUser);  
   console.log('login-google-html, token:', token);
