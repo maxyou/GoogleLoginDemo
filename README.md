@@ -7,9 +7,10 @@ Use Google OAuth for verification, use JWT to keep login.
 
 ## Urls
 
-Deployed on Vercel. The pages:
+Deployed on Vercel:
 - [https://google-login-demo-sand.vercel.app/](https://google-login-demo-sand.vercel.app/)
-- [https://google-login-demo-sand.vercel.app/home](https://google-login-demo-sand.vercel.app/home)
+
+The button urls:
 - [https://google-login-demo-sand.vercel.app/user/login/btn-html](https://google-login-demo-sand.vercel.app/user/login/btn-html)
 - [https://google-login-demo-sand.vercel.app/user/login/btn-js](https://google-login-demo-sand.vercel.app/user/login/btn-js)
 
